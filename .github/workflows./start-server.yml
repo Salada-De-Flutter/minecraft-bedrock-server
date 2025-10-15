@@ -1,0 +1,29 @@
+name: Start Minecraft Bedrock Server
+
+on:
+  workflow_dispatch:  # Permite iniciar manualmente pelo GitHub
+  push:
+    branches:
+      - main
+
+jobs:
+  start-server:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: List arquivos do repositório
+        run: ls -lah
+
+      - name: Instalar dependências necessárias
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libcurl4 openssl
+
+      - name: Dar permissão de execução ao servidor
+        run: chmod +x bedrock_server
+
+      - name: Iniciar o servidor Minecraft Bedrock
+        run: ./bedrock_server
